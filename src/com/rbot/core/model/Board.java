@@ -1,24 +1,28 @@
 package com.rbot.core.model;
 
-import java.util.Collections;
-
 public class Board {
 
 	public static final Integer boardSize = 8;
 	
-	private Integer grid[][];
+	private Cell grid[][];
 	
 	public Board(){
-		grid = new Integer[boardSize][boardSize];
-		for(int i = 0; i<boardSize; i++){
-			for(int j = 0; j<boardSize; j++){
-				grid[i][j] = new Integer(0);
-			}
-//			System.out.print("\n");
-		}
-//		new Integer[boardSize][boardSize];
+		grid = new Cell[boardSize][boardSize];
+		resetBoard();
 	}
 	
+	public void resetBoard() {
+		for(int i = 0; i<boardSize; i++){
+			for(int j = 0; j<boardSize; j++){
+				grid[i][j] = new Cell(CellType.EMPTY);
+			}
+		}
+		grid[3][3] = new Cell(CellType.BLACK);
+		grid[4][4] = new Cell(CellType.BLACK);
+		grid[3][4] = new Cell(CellType.WHITE);
+		grid[4][3] = new Cell(CellType.WHITE);
+	}
+
 	public void printBoard(){
 		for(int i = 0; i<boardSize; i++){
 			for(int j = 0; j<boardSize; j++){
@@ -27,4 +31,6 @@ public class Board {
 			System.out.print("\n");
 		}
 	}
+	
+//	public move(CellType toInsert, )
 }
