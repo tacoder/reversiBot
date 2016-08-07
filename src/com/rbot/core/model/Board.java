@@ -2,6 +2,8 @@ package com.rbot.core.model;
 
 import java.util.List;
 
+import com.rbot.core.directional.Coordinates;
+
 public class Board {
 
 	public static final Integer boardSize = 8;

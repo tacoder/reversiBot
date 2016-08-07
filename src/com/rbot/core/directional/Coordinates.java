@@ -1,4 +1,4 @@
-package com.rbot.core.model;
+package com.rbot.core.directional;
 
 public class Coordinates {
 	private Integer row;
