@@ -9,5 +9,6 @@ public class driver {
 		Board board = new Board();
 		board.printBoard();
 		board.move(CellType.BLACK, new Coordinates(5, 3));
+		board.printBoard();
 	}
 }

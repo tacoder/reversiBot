@@ -55,6 +55,7 @@ public class Board {
 			}
 			System.out.print("\n");
 		}
+		System.out.print("\n");
 	}
 	
 	
@@ -86,7 +87,7 @@ public class Board {
 		List<Coordinates> toReturn = new ArrayList<Coordinates>();
 		while (!tempCoordinate.equals(b)){
 			toReturn.add(tempCoordinate);
-			tempCoordinate.addUnitInDirection(direction);
+			if(!tempCoordinate.addUnitInDirection(direction)) break;
 		}
 		return toReturn;
 		

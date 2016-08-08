@@ -26,4 +26,11 @@ public class Velocity {
 		this.yVelocity = yVelocity;
 	}
 	
+	public boolean equals(Velocity v){
+		return (v.getxVelocity().equals(xVelocity) && v.getyVelocity().equals(yVelocity));
+	}
+	
+	public String toString(){
+		return "[ " + xVelocity + "," + yVelocity + " ]";
+	}
 }
