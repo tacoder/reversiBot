@@ -3,34 +3,34 @@ package com.rbot.core.directional;
 import com.rbot.core.model.Board;
 
 public class Coordinates {
-	private Integer row;
-	private Integer column;
-	public Integer getColumn() {
-		return column;
+	private Integer y;
+	private Integer x;
+	public Integer getX() {
+		return x;
 	}
-	public void setColumn(Integer column) {
-		this.column = column;
+	public void setX(Integer column) {
+		this.x = column;
 	}
-	public Integer getRow() {
-		return row;
+	public Integer getY() {
+		return y;
 	}
-	public void setRow(Integer row) {
-		this.row = row;
+	public void setY(Integer row) {
+		this.y = row;
 	}
 	public Coordinates(Integer row, Integer column) {
 		super();
-		this.row = row;
-		this.column = column;
+		this.y = row;
+		this.x = column;
 	}
 	
 	public Coordinates(Coordinates a) {
-		this.row = a.getRow();
-		this.column = a.getColumn();
+		this.y = a.getY();
+		this.x = a.getX();
 	}
 	public Boolean addUnitInDirection(Direction direction) {
 		if(isMoveInDirectionPossible(direction)){
-			row += direction.getVel().getxVelocity().getVelocity();
-			column += direction.getVel().getyVelocity().getVelocity();
+			x += direction.getVel().getxVelocity().getVelocity();
+			y += direction.getVel().getyVelocity().getVelocity();
 			return true;
 		} else {
 			return false;
@@ -39,8 +39,12 @@ public class Coordinates {
 		
 	}
 	private boolean isMoveInDirectionPossible(Direction direction) {
-		Integer newX = row + direction.getVel().getxVelocity().getVelocity();
-		Integer newY = column + direction.getVel().getyVelocity().getVelocity();
+		Integer newX = x + direction.getVel().getxVelocity().getVelocity();
+		Integer newY = y + direction.getVel().getyVelocity().getVelocity();
 		return (0 <= newX && newX < Board.boardSize) && (0 <= newY && newY < Board.boardSize);
+	}
+	
+	public boolean equals(Coordinates c){
+		return (y.equals(c.getY()) && x.equals(c.getX()));
 	}
 }

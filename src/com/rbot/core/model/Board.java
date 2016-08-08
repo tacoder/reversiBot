@@ -78,7 +78,7 @@ public class Board {
 	}
 
 	private void paintCell(Coordinates cell, CellType toInsert) {
-		grid[cell.getRow()][cell.getColumn()].setContent(toInsert);
+		getCellAtCoordinate(cell).setContent(toInsert);
 	}
 
 	private List<Coordinates> getAllCellCoordinatesBetween(Coordinates a, Coordinates b) throws Exception {
@@ -86,7 +86,7 @@ public class Board {
 		Coordinates tempCoordinate = new Coordinates(a);
 		List<Coordinates> toReturn = new ArrayList<Coordinates>();
 		while (!tempCoordinate.equals(b)){
-			toReturn.add(tempCoordinate);
+			toReturn.add(new Coordinates(tempCoordinate));
 			if(!tempCoordinate.addUnitInDirection(direction)) break;
 		}
 		return toReturn;
@@ -94,8 +94,8 @@ public class Board {
 	}
 
 	private Direction getDirectionBetween(Coordinates a, Coordinates b) throws Exception {
-		Integer xVel = (int) Math.signum(a.getRow() - b.getRow());
-		Integer yVel = (int) Math.signum(a.getColumn() - b.getColumn());
+		Integer yVel = (int) Math.signum(b.getY() - a.getY());
+		Integer xVel = (int) Math.signum(b.getX() - a.getX());
 		VelocityMagnitudes xVelocity = VelocityMagnitudes.getVelocityMagnitudeByInteger(xVel);
 		VelocityMagnitudes yVelocity = VelocityMagnitudes.getVelocityMagnitudeByInteger(yVel);;
 		Velocity vel = new Velocity(xVelocity, yVelocity);
@@ -108,7 +108,7 @@ public class Board {
 		for(Direction direction:directions){
 			Coordinates tempCoordinate = new Coordinates(insertAt);
 			while(tempCoordinate.addUnitInDirection(direction)){
-				if(grid[tempCoordinate.getRow()][tempCoordinate.getColumn()].getContent().equals(toInsert)){
+				if(getContentAtCoordinate(tempCoordinate).equals(toInsert)){
 					toReturn.add(tempCoordinate);
 					break;
 				}
@@ -134,6 +134,10 @@ public class Board {
 	}
 	
 	CellType getContentAtCoordinate(Coordinates x){
-		return grid[x.getRow()][x.getColumn()].getContent();
+		return getCellAtCoordinate(x).getContent();
+	}
+
+	private Cell getCellAtCoordinate(Coordinates x) {
+		return grid[x.getY()][x.getX()];
 	}
 }
