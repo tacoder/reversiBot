@@ -140,4 +140,36 @@ public class Board {
 	private Cell getCellAtCoordinate(Coordinates x) {
 		return grid[x.getY()][x.getX()];
 	}
+	
+	public List<Coordinates> getAllPossibleMovesForPlayer(CellType cellType){
+		List<Coordinates> toReturn = new ArrayList<Coordinates>();
+		List<Coordinates> allBorderCells = getAllBorderCells();
+		for(Coordinates cell:allBorderCells){
+			if(isValidMove(cellType, cell)){
+				toReturn.add(new Coordinates(cell));
+			}
+		}
+		return toReturn;
+	}
+
+	private List<Coordinates> getAllBorderCells() {
+		List<Coordinates> toReturn = new ArrayList<Coordinates>();
+		floodFillGetBorderCells(new Coordinates(3, 3),toReturn);
+		return toReturn;
+	}
+
+	private void floodFillGetBorderCells(Coordinates coordinates, List<Coordinates> toReturn) {
+		if(getContentAtCoordinate(coordinates).equals(CellType.EMPTY)){
+			toReturn.add(new Coordinates(coordinates));
+			return;
+		}
+		List<Direction> directions = Direction.getListOfAllDirections();
+		for(Direction direction:directions){
+			Coordinates tempCoord = new Coordinates(coordinates);
+			if(tempCoord.addUnitInDirection(direction)){
+				floodFillGetBorderCells(tempCoord, toReturn);
+			}
+		}
+		
+	}
 }

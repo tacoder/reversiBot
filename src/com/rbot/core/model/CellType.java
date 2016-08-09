@@ -15,4 +15,12 @@ public enum CellType {
 	public String toString(){
 		return this.charRepresentation.toString();
 	}
+
+	public Character getCharRepresentation() {
+		return charRepresentation;
+	}
+
+	public void setCharRepresentation(Character charRepresentation) {
+		this.charRepresentation = charRepresentation;
+	}
 }

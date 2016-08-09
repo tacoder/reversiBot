@@ -47,4 +47,8 @@ public class Coordinates {
 	public boolean equals(Coordinates c){
 		return (y.equals(c.getY()) && x.equals(c.getX()));
 	}
+	
+	public String toString(){
+		return "(" + x + "," + y + ")";
+	}
 }
