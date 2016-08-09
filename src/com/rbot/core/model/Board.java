@@ -154,8 +154,12 @@ public class Board {
 
 	private List<Coordinates> getAllBorderCells() {
 		List<Coordinates> toReturn = new ArrayList<Coordinates>();
-		floodFillGetBorderCells(new Coordinates(3, 3),toReturn);
+		bfsGetBorderCells(new Coordinates(3, 3),toReturn);
 		return toReturn;
+	}
+
+	private void bfsGetBorderCells(Coordinates coordinates, List<Coordinates> toReturn) {
+		
 	}
 
 	private void floodFillGetBorderCells(Coordinates coordinates, List<Coordinates> toReturn) {
