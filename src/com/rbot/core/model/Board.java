@@ -42,10 +42,10 @@ public class Board {
 				grid[i][j] = new Cell(CellType.EMPTY);
 			}
 		}
-		grid[3][3] = new Cell(CellType.BLACK);
-		grid[4][4] = new Cell(CellType.BLACK);
-		grid[3][4] = new Cell(CellType.WHITE);
-		grid[4][3] = new Cell(CellType.WHITE);
+		grid[3][3] = new Cell(CellType.WHITE);
+		grid[4][4] = new Cell(CellType.WHITE);
+		grid[3][4] = new Cell(CellType.BLACK);
+		grid[4][3] = new Cell(CellType.BLACK);
 	}
 
 	public void printBoard(){
@@ -122,8 +122,12 @@ public class Board {
 		for(Direction direction:directions){
 			Coordinates tempCoordinate = new Coordinates(insertAt);
 			if(tempCoordinate.addUnitInDirection(direction) && 
-					!getContentAtCoordinate(tempCoordinate).equals(toInsert)){
+					!getContentAtCoordinate(tempCoordinate).equals(toInsert) &&
+					!getContentAtCoordinate(tempCoordinate).equals(CellType.EMPTY)){
 				while(tempCoordinate.addUnitInDirection(direction)){
+					if(getContentAtCoordinate(tempCoordinate).equals(CellType.EMPTY)){
+						break;
+					}
 					if(getContentAtCoordinate(tempCoordinate).equals(toInsert)){
 						return true;
 					}
@@ -152,28 +156,32 @@ public class Board {
 		return toReturn;
 	}
 
-	private List<Coordinates> getAllBorderCells() {
+	public List<Coordinates> getAllBorderCells() {
 		List<Coordinates> toReturn = new ArrayList<Coordinates>();
-		bfsGetBorderCells(new Coordinates(3, 3),toReturn);
-		return toReturn;
-	}
-
-	private void bfsGetBorderCells(Coordinates coordinates, List<Coordinates> toReturn) {
-		
-	}
-
-	private void floodFillGetBorderCells(Coordinates coordinates, List<Coordinates> toReturn) {
-		if(getContentAtCoordinate(coordinates).equals(CellType.EMPTY)){
-			toReturn.add(new Coordinates(coordinates));
-			return;
-		}
-		List<Direction> directions = Direction.getListOfAllDirections();
-		for(Direction direction:directions){
-			Coordinates tempCoord = new Coordinates(coordinates);
-			if(tempCoord.addUnitInDirection(direction)){
-				floodFillGetBorderCells(tempCoord, toReturn);
+		for(int i = 0; i<boardSize; i++){
+			for(int j = 0; j<boardSize; j++){
+				Coordinates c = new Coordinates(i, j);
+				if(isBorderCell(c)) 
+					toReturn.add(c);
 			}
 		}
 		
+		return toReturn;
 	}
+
+	private boolean isBorderCell(Coordinates c) {
+		if(!getContentAtCoordinate(c).equals(CellType.EMPTY)){
+			return false;
+		}
+		List<Direction> directions = Direction.getListOfAllDirections();
+		for(Direction direction:directions){
+			Coordinates tempCoordintate = new Coordinates(c);
+			if(tempCoordintate.addUnitInDirection(direction)){
+				if(!getContentAtCoordinate(tempCoordintate).equals(CellType.EMPTY))
+					return true;
+			}
+		}
+		return false;
+	}
+
 }
